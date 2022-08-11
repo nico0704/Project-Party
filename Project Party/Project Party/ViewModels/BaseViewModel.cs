@@ -13,7 +13,7 @@ namespace Project_Party.ViewModels
         public IDataStore<Party> DataStore => DependencyService.Get<IDataStore<Party>>();
 
         
-        bool isBusy = false;
+        public bool isBusy = false;
         public bool IsBusy
         {
             get { return isBusy; }
