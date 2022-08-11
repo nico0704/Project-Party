@@ -84,7 +84,7 @@
     <TabBar Style="{StaticResource BaseStyle}">
 
 
-        <Tab Title="Dashboard">
+        <Tab Title="Veranstaltungen">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
                                
@@ -94,14 +94,14 @@
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
 
-        <Tab Title="Dashboard">
+        <Tab Title="Map">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
                                 
                                  Glyph="&#xf279;">
                 </FontImageSource>
             </Tab.Icon>
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:MapPage}" />
         </Tab>
 
         <Tab Title="Profile">
