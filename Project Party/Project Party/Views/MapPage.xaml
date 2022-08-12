@@ -5,7 +5,20 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              >
     <ContentPage.Content>
-        <maps:Map x:Name="map" />
+        <maps:Map x:Name="map" 
+                  IsShowingUser="True"
+                  MoveToLastRegionOnLayoutChange="False"
+                  ItemsSource="{Binding Locations}"
+                  
+                  >
+            <maps:Map.ItemTemplate>
+                <DataTemplate>
+                    <maps:Pin Position="{Binding PartyPositon}"
+                              Address="{Binding Adress}"
+                              Label="{Binding Name}" />
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+        </maps:Map>
     </ContentPage.Content>
 
 </ContentPage>

@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Geolocation">
+      <Version>1.2.1</Version>
+    </PackageReference>
     <PackageReference Include="Google.Apis">
       <Version>1.57.0</Version>
     </PackageReference>

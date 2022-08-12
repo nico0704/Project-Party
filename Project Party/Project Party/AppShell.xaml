@@ -108,7 +108,7 @@
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
                                  
-                                 Glyph="&#xf015;">
+                                 Glyph="&#xf007;">
                 </FontImageSource>
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
