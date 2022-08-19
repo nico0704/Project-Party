@@ -4,6 +4,8 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms.GoogleMaps.iOS;
+using XFGoogleMapSample.iOS;
 
 namespace Project_Party.iOS
 {
@@ -24,7 +26,13 @@ namespace Project_Party.iOS
         {
             
             global::Xamarin.Forms.Forms.Init();
-            Xamarin.FormsMaps.Init();
+
+            var platformConfig = new PlatformConfig
+            {
+                ImageFactory = new CachingImageFactory()
+            };
+
+            Xamarin.FormsGoogleMaps.Init("AIzaSyCNStgUqAq-Qps0OXMR8vLi8fwNazgq_E0", platformConfig);
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -2,22 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Project_Party.Views.MapPage"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              >
     <ContentPage.Content>
-        <maps:Map x:Name="map" 
-                  IsShowingUser="True"
-                  MoveToLastRegionOnLayoutChange="False"
-                  ItemsSource="{Binding Locations}"
-                  
-                  >
-            <maps:Map.ItemTemplate>
-                <DataTemplate>
-                    <maps:Pin Position="{Binding PartyPositon}"
-                              Address="{Binding Adress}"
-                              Label="{Binding Name}" />
-                </DataTemplate>
-            </maps:Map.ItemTemplate>
+        <maps:Map
+            x:Name="LocationsMap"
+            IsShowingUser="True">
+            
         </maps:Map>
     </ContentPage.Content>
 
