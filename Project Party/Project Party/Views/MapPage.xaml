@@ -3,13 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Project_Party.Views.MapPage"
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             xmlns:bindings="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings"
              >
     <ContentPage.Content>
+        <ContentView Content="{Binding Map}">
+            
+        </ContentView>
+        <!-- 
         <maps:Map
             x:Name="LocationsMap"
-            IsShowingUser="True">
-            
+            IsShowingUser="True"
+            MapType="Street"
+            MyLocationEnabled="True">
+
+            <maps:Map.Behaviors>
+                <bindings:BindingPinsBehavior Value="{Binding Pins}" />
+            </maps:Map.Behaviors>
         </maps:Map>
+        -->
+        
     </ContentPage.Content>
 
 </ContentPage>

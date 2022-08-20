@@ -21,9 +21,10 @@ namespace Project_Party.Views
         {
             InitializeComponent();
             this.BindingContext = new MapPageViewModel();
-            SetMapToUser();
+            //SetMapToUser();
         }
 
+        /*
         public async void SetMapToUser()
         {
             var locator = CrossGeolocator.Current;
@@ -31,9 +32,11 @@ namespace Project_Party.Views
             LocationsMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
                                                          Distance.FromMiles(1)));
         }
+        */
+       
 
-        
-        
-        
+
+
+
     }
 }

@@ -33,6 +33,7 @@ namespace Project_Party.iOS
             };
 
             Xamarin.FormsGoogleMaps.Init("AIzaSyCNStgUqAq-Qps0OXMR8vLi8fwNazgq_E0", platformConfig);
+            Xamarin.FormsGoogleMapsBindings.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
