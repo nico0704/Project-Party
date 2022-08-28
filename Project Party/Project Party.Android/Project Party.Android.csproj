@@ -63,6 +63,9 @@
     <PackageReference Include="GoogleApi">
       <Version>4.2.3</Version>
     </PackageReference>
+    <PackageReference Include="MySqlConnector">
+      <Version>2.1.13</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design">
       <Version>28.0.0.3</Version>
     </PackageReference>

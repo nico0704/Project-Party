@@ -21,6 +21,8 @@ namespace Project_Party.ViewModels
             Title = "Browse";
             PartyList = new ObservableCollection<Party>();
             ExecuteLoadItemsCommand();
+            DataStore.Connect();
+            
             LoadPartysCommand = new Command(async () => await ExecuteLoadItemsCommand());
         }
         private ObservableCollection<Party> CreateTestList()
@@ -36,7 +38,7 @@ namespace Project_Party.ViewModels
             {
 
                 PartyList.Clear();
-                var partys = await DataStore.GetItemsAsync(true);
+                var partys = await DataStore.GetItemsAsync();
                 foreach (var party in partys)
                 {
                     PartyList.Add(party);

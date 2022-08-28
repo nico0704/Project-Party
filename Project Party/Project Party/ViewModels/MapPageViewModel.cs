@@ -38,7 +38,8 @@ namespace Project_Party.ViewModels
             {
 
                 Map.Pins.Clear();
-                var locations = await DataStore.GetItemsAsync(true);
+                
+                var locations = await DataStore.GetItemsAsync(20);
                 foreach (var location in locations)
                 {
                     Map.Pins.Add(new Pin()

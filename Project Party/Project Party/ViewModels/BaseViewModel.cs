@@ -10,7 +10,7 @@ namespace Project_Party.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Party> DataStore => DependencyService.Get<IDataStore<Party>>();
+        public MockDataStore DataStore = MockDataStore.Instance();
 
         
         public bool isBusy = false;

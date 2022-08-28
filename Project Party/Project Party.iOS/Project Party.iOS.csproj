@@ -148,6 +148,9 @@
     <PackageReference Include="GoogleApi">
       <Version>4.2.3</Version>
     </PackageReference>
+    <PackageReference Include="MySqlConnector">
+      <Version>2.1.13</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.11.3</Version>
     </PackageReference>
