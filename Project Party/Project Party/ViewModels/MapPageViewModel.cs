@@ -20,11 +20,11 @@ namespace Project_Party.ViewModels
         public MapPageViewModel()
         {
             Map = new Map();
-            SetMapStyle(MapType.Street);
+            
             Map.IsShowingUser = true;
             Map.MyLocationEnabled = true;
-            
             SetMapToUser();
+            SetMapStyle(MapType.Street);
             ExecuteLoadItemsCommand();
             LoadLocationsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             

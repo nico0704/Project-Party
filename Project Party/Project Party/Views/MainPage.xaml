@@ -7,7 +7,7 @@
     
     <ContentPage.Content>
         <RefreshView Command="{Binding LoadPartysCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView  x:Name="listView" SelectionMode="Single" ItemsSource="{Binding PartyList}">
+            <CollectionView  x:Name="listView" SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged" ItemsSource="{Binding PartyList}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" />
                 </CollectionView.ItemsLayout>

@@ -20,6 +20,20 @@ namespace Project_Party.Views
             this.BindingContext = new MainPageViewModel();
         }
 
-       
+        void  OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // A bug that after Ive set the SelectedItem, the Detail Page will show second time 
+            if(listView.SelectedItem == null) 
+                    return;
+
+            Party selectedParty = (e.CurrentSelection.FirstOrDefault() as Party);
+            Navigation.PushAsync(new SinglePartyPage(selectedParty));
+
+            listView.SelectedItem = null;
+
+
+        }
+
+
     }
 }
