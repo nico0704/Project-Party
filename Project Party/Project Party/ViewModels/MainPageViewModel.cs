@@ -11,7 +11,7 @@ namespace Project_Party.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private Party _selectedParty;
+        
         public ObservableCollection<Party> PartyList { get; }
 
         public Command LoadPartysCommand { get; }
@@ -20,11 +20,14 @@ namespace Project_Party.ViewModels
         {
             Title = "Browse";
             PartyList = new ObservableCollection<Party>();
-            ExecuteLoadItemsCommand();
             DataStore.Connect();
+            ExecuteLoadItemsCommand();
+            
             
             LoadPartysCommand = new Command(async () => await ExecuteLoadItemsCommand());
         }
+
+      
         private ObservableCollection<Party> CreateTestList()
         {
             return PartyList;

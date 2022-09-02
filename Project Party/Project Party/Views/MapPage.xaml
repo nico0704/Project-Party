@@ -3,13 +3,113 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Project_Party.Views.MapPage"
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
-             xmlns:bindings="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings"
-             >
+             xmlns:bindings="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+    <ContentPage.Resources>
+            <ResourceDictionary>
+
+            
+            <Style x:Key="PartyGrid" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="Wheat" />
+                
+            </Style>
+        </ResourceDictionary>
+        </ContentPage.Resources>
     <ContentPage.Content>
-        <ContentView Content="{Binding Map}">
+        
+
+        <ContentView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition Height="250"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <maps:Map
+                    x:Name="Map"
+                    IsShowingUser="True"
+                    MyLocationEnabled="True"
+                    Grid.Row="0"
+                    Grid.RowSpan="3">
+                </maps:Map>
+
+                <yummy:PancakeView 
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    CornerRadius="10 10 0 0"
+                    BackgroundColor="White"
+                    IsVisible="False" x:Name="DetailedParty">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="https://img.freepik.com/vektoren-kostenlos/party-menge-silhouetten-tanzen-auf-nachtclub_1048-11557.jpg?w=2000"
+                           Aspect="AspectFill"
+                           Grid.Row="0"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="3">
+                           
+                        </Image>
+                        <yummy:PancakeView HorizontalOptions="Center"
+                              Grid.Row="0"
+                              VerticalOptions="Center"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="3"
+                              BackgroundColor="#90FFFFFF"
+                              CornerRadius="10"
+                              Padding="3"
+                              >
+                            <Label FontSize="30"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"
+                                   >
+                                Electro Party
+                            </Label>
+                        </yummy:PancakeView>
+                        
+                        <yummy:PancakeView 
+                            Grid.Row="1"
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            HeightRequest="20"
+                            
+                            BackgroundColor="Beige"
+                            
+                            CornerRadius="15"
+                                           >
+                            <Label 
+                                Text="15.02.2008"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" /> 
+                        </yummy:PancakeView>
+                        <Label Text="Location: S-club Fulda"
+                               FontAttributes="Bold"
+                               Grid.Row="3"
+                               Grid.ColumnSpan="2"
+                               Margin="20, 0, 0, 0"></Label>
+                        <Label Text="Musikart: Techno, House, Electro"
+                               Grid.Row="4"
+                               Grid.ColumnSpan="2"
+                               Margin="20, 0, 0, 0"></Label>
+                    </Grid>
+                    
+                </yummy:PancakeView>
+            </Grid>
             
         </ContentView>
+    
         <!-- 
+        Content="{Binding Content}"
         <maps:Map
             x:Name="LocationsMap"
             IsShowingUser="True"

@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Esri.ArcGISRuntime" Version="100.15.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Xamarin.Forms" Version="100.15.0" />
     <PackageReference Include="Geolocation" Version="1.2.1" />
     <PackageReference Include="Google.Apis" Version="1.57.0" />
     <PackageReference Include="GoogleApi" Version="4.2.3" />
@@ -22,7 +24,8 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />  
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />  
     <PackageReference Include="Xamarin.Forms.GoogleMaps.Bindings" Version="3.0.0" />  
-    <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2515" />
+    <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2515" />  
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
 
   <ItemGroup>

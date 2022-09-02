@@ -6,80 +6,90 @@
                 xmlns:local="clr-namespace:Project_Party.ViewModels">
     
     <ContentPage.Content>
-        <RefreshView Command="{Binding LoadPartysCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView  x:Name="listView" SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged" ItemsSource="{Binding PartyList}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-            
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="20, 10">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Selected">
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="White"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Frame CornerRadius="20"  
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40">
+                </RowDefinition>
+                <RowDefinition> </RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Text="Filter" Grid.Row="0"></Button>
+            <RefreshView Grid.Row="1" Command="{Binding LoadPartysCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView  x:Name="listView" SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged" ItemsSource="{Binding PartyList}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid Padding="20, 10">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="White"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Frame CornerRadius="20"  
                            
-                                BackgroundColor="White"
-                                HasShadow="False"
-                                xct:ShadowEffect.Color="Black" 
-                                xct:ShadowEffect.OffsetY="0"
-                                xct:ShadowEffect.Radius="5"
-                                IsClippedToBounds="False"
-                                       Padding="20, 10"
+                                        BackgroundColor="White"
+                                        HasShadow="False"
+                                        xct:ShadowEffect.Color="Black" 
+                                        xct:ShadowEffect.OffsetY="0"
+                                        xct:ShadowEffect.Radius="5"
+                                        IsClippedToBounds="False"
+                                        Padding="20, 10"
                             >
-                                
 
-                                <Grid HeightRequest="150">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20"></RowDefinition>
-                                        <RowDefinition ></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                    </Grid.RowDefinitions>
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <Image Grid.Column="0"
+                                    <Grid HeightRequest="150">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20"></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Column="0"
                                            Grid.Row="0"
                                            Grid.RowSpan="3"
                                            x:Name="myImg"
                                            Source="https://psdfreebies.com/wp-content/uploads/2021/11/Weekend-Club-Party-Flyer-PSD-Template-Preview-730x1024.jpg" />
-                                    <Label Grid.Row="0"
+                                        <Label Grid.Row="0"
                                            Grid.Column="1"
                                            Text="{Binding Name}"
                                         TextColor="#000" />
-                                   
-                                    <Label Grid.Row="1"
+
+                                        <Label Grid.Row="1"
                                            Grid.Column="1"
                                            Text="{Binding Time, StringFormat='{}{0:dd/MM HH:mm }'}"
                                         TextColor="#503026" />
-                                    <Label Grid.Row="2"
+                                        <Label Grid.Row="2"
                                            Grid.Column="1"
                                             TextColor="#503026">
-                                        <Label.Text>
-                                            <MultiBinding StringFormat="{}{0}, {1}">
-                                                <Binding Path="LocationName" />
-                                                <Binding Path="City" />
-                                            </MultiBinding>
-                                        </Label.Text>
-                                    </Label>    
-                                </Grid>
-                            </Frame>
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0}, {1}">
+                                                    <Binding Path="LocationName" />
+                                                    <Binding Path="City" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </Grid>
+                                </Frame>
 
-                        </Grid>
-                    
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>
