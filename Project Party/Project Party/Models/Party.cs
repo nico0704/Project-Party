@@ -7,16 +7,18 @@ namespace Project_Party.Models
 {
     public class Party
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string PictureName { get; set; }
+        public string PictureSource { get; set; }
+        public string FlyerSource { get; set; }
         public DateTime Time { get; set; }
         public string City { get; set; }
         public string Adress { get; set; }
         public string LocationName { get; set; }
         public Position PartyPositon { get; set; }
 
+        public string Musikart { get; set; }
         /* public Party(int partyId,string name, string pictureName, string description, DateTime time, string locationName, string city, string adress)
          {
              Id = partyId;

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Project_Party.Views.MapPage"
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
-             xmlns:bindings="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
     <ContentPage.Resources>
             <ResourceDictionary>
 
@@ -40,6 +40,7 @@
                     BackgroundColor="White"
                     IsVisible="False" x:Name="DetailedParty">
                     <Grid >
+                        
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="10"></RowDefinition>
@@ -53,7 +54,7 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Source="https://img.freepik.com/vektoren-kostenlos/party-menge-silhouetten-tanzen-auf-nachtclub_1048-11557.jpg?w=2000"
+                        <Image Source="{Binding SelectedParty.PictureSource}"
                            Aspect="AspectFill"
                            Grid.Row="0"
                            Grid.RowSpan="2"
@@ -72,8 +73,9 @@
                             <Label FontSize="30"
                                    FontAttributes="Bold"
                                    TextColor="Black"
+                                   Text="{Binding SelectedParty.Name}"
                                    >
-                                Electro Party
+                                
                             </Label>
                         </yummy:PancakeView>
                         
@@ -88,16 +90,17 @@
                             CornerRadius="15"
                                            >
                             <Label 
-                                Text="15.02.2008"
+                                Text="{Binding SelectedParty.Time, StringFormat='{0:d.MM.yyyy}'}"
                                 VerticalOptions="Center"
-                                HorizontalOptions="Center" /> 
+                                HorizontalOptions="Center" 
+                                /> 
                         </yummy:PancakeView>
-                        <Label Text="Location: S-club Fulda"
+                        <Label Text="{Binding SelectedParty.LocationName, StringFormat=Location: {0}}"
                                FontAttributes="Bold"
                                Grid.Row="3"
                                Grid.ColumnSpan="2"
                                Margin="20, 0, 0, 0"></Label>
-                        <Label Text="Musikart: Techno, House, Electro"
+                        <Label Text="{Binding SelectedParty.Musikart, StringFormat=Musikart: {0}}"
                                Grid.Row="4"
                                Grid.ColumnSpan="2"
                                Margin="20, 0, 0, 0"></Label>

@@ -13,10 +13,10 @@ namespace Project_Party.Services
 {
     public class MockDataStore : IDataStore<Party>
     {
-        readonly  List<Party> partys;
+        readonly List<Party> partys;
         private MySqlConnection connection;
         public static bool Connected = false;
-        private  MockDataStore()
+        private MockDataStore()
         {
             if (!Connected)
             {
@@ -42,15 +42,15 @@ namespace Project_Party.Services
         {
             if (_instance == null)
             {
-               
+
                 _instance = new MockDataStore();
             }
-                
-            
+
+
             return _instance;
-            
+
         }
-       
+
 
         public Task<bool> Connect()
         {
@@ -62,8 +62,9 @@ namespace Project_Party.Services
                 connection.Open();
                 Console.WriteLine("Connected to Server!");
                 result = true;
-                
-            }catch(Exception e)
+
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -95,32 +96,34 @@ namespace Project_Party.Services
         public async Task<IEnumerable<Party>> GetItemsAsync()
         {
             partys.Clear();
-            string commandString = "select ID from allPartys" ;
+            string commandString = "select * from Party";
             MySqlCommand command = new MySqlCommand(commandString, connection);
 
 
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                reader.GetUInt32("ID");
-
                 //Creating only a Test Party
                 //Need to Setup real Database
-                
-                partys.Add(new Party { Id =  reader.GetInt32("ID").ToString() , Name = "First item", Description = "This is an item description.", PictureName = "TestFlyer.jpg", Time = DateTime.Now, City = "Fulda", Adress = "LeipzigerStraße 21", LocationName = "Sclub", PartyPositon = new Position(50.57535144548077, 9.674515176483713) });
+
+                partys.Add(GetPartyFromReader(reader));
                 Console.WriteLine(partys.Count);
             }
             reader.Close();
-            
+
 
             return await Task.FromResult(partys);
         }
 
+        private Party GetPartyFromReader(MySqlDataReader reader)
+        {
+            return new Party { Id = reader.GetInt32("Id"), Name = reader.GetString("Name"), Description = reader.GetString("Description"), PictureSource = reader.GetString("PictureSource"), FlyerSource = reader.GetString("PictureSource"), Time = reader.GetDateTime("Time"), City = reader.GetString("City"), Adress = reader.GetString("Adress"), LocationName = reader.GetString("LocationName"), PartyPositon = new Position(reader.GetDouble("PartyPositionX"), reader.GetDouble("PartyPositionY")), Musikart= reader.GetString("Musikart") };
+        }
         //To limit the search
         public async Task<IEnumerable<Party>> GetItemsAsync(int count)
         {
 
-            string commandString = "select ID from allPartys LIMIT " + count;
+            string commandString = "select * from Party LIMIT " + count;
             MySqlCommand command = new MySqlCommand(commandString, connection);
 
 
@@ -129,7 +132,7 @@ namespace Project_Party.Services
             while (reader.Read())
             {
                 reader.GetUInt32("ID");
-                partys.Add(new Party { Id = reader.GetInt32("ID").ToString(), Name = "First item", Description = "This is an item description.", PictureName = "TestFlyer.jpg", Time = DateTime.Now, City = "Fulda", Adress = "LeipzigerStraße 21", LocationName = "Sclub", PartyPositon = new Position(50.57535144548077, 9.674515176483713) });
+                partys.Add(GetPartyFromReader(reader));
                 Console.WriteLine(partys.Count);
             }
 
@@ -140,7 +143,7 @@ namespace Project_Party.Services
 
 
         //Noch zu machen
-        public async Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(int id)
         {
             var oldItem = partys.Where((Party arg) => arg.Id == id).FirstOrDefault();
             partys.Remove(oldItem);
@@ -148,12 +151,12 @@ namespace Project_Party.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<Party> GetItemAsync(string id)
+        public async Task<Party> GetItemAsync(int id)
         {
-            string commandString = "select ID from allPartys where ID=" + id;
+            string commandString = "select * from Party where ID=" + id;
             MySqlCommand command = new MySqlCommand(commandString, connection);
 
-            
+
             MySqlDataReader reader = command.ExecuteReader();
 
             //command.Parameters.AddWithValue("@zip","india");
@@ -188,6 +191,10 @@ namespace Project_Party.Services
         public Task<IEnumerable<Party>> GetItemsAsync(Position actualPosition, double distance)
         {
             throw new NotImplementedException();
+        }
+        public Task<Party> GetItem(int id)
+        {
+            return Task.FromResult(partys.FirstOrDefault(s => s.Id == id));
         }
     }
 }

@@ -17,6 +17,27 @@ namespace Project_Party.ViewModels
     {
         public Command LoadLocationsCommand { get; }
 
+        public Command PinClickedCommand { get; }
+
+        Pin selectedPin;
+        public Pin SelectedPin
+        {
+            get { return selectedPin; }
+            set 
+            {
+                SetProperty(ref selectedPin, value);
+            }
+        }
+
+         Party selectedParty;
+         public Party SelectedParty
+         {   
+            get { return selectedParty; }
+            set
+            {
+                SetProperty(ref selectedParty, value);
+            }
+         }
         public LinkedList<Pin> Pins { get; private set; } = new LinkedList<Pin>() ;
         
         /*
@@ -35,9 +56,11 @@ namespace Project_Party.ViewModels
             SetupContent();
             */
             ExecuteLoadItemsCommand();
+            PinClickedCommand = new Command(async () => await PinClicked());
             LoadLocationsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             //Map.PinClicked += PinClicked;
         }
+
 
         /*
       async Task SetupContent()
@@ -112,11 +135,23 @@ namespace Project_Party.ViewModels
 
       }
       */
-        private void PinClicked(Object sender, PinClickedEventArgs e)
+        async Task PinClicked()
         {
-            Console.WriteLine("Pin Clicked");
-            //ShowParty();
+            if (selectedPin != null)
+            {
+                try
+                {
+                    SelectedParty = await DataStore.GetItem(Int32.Parse(SelectedPin.Tag.ToString()));
+                    Console.WriteLine("Selected Party " + selectedPin.Tag + " Party Name " + SelectedParty.Name);
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+               
+            }
         }
+
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
@@ -130,14 +165,15 @@ namespace Project_Party.ViewModels
                 foreach (var location in locations)
                 {
 
-                    
+
                     Pins.AddLast(new Pin()
                     {
                         Label = location.Name,
                         Position = location.PartyPositon,
                         Icon = BitmapDescriptorFactory.DefaultMarker(Color.Gray),
                         Type = PinType.Place,
-                    });
+                        Tag = location.Id
+                    }) ;
                 }
             }
             catch (Exception ex)

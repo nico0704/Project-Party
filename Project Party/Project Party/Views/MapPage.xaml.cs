@@ -51,11 +51,15 @@ namespace Project_Party.Views
             {
                 Map.Pins.Add(pin);
             }
+            
         }
        
         public void PinClicked (Object sender, PinClickedEventArgs e)
         {
+            vm.SelectedPin = e.Pin;
+            vm.PinClickedCommand.Execute(null);
             ClickedPin = true;
+            Console.WriteLine(vm.SelectedParty.Name);
             Grid.SetRowSpan(Map, 2);
             DetailedParty.IsVisible = true;
         }

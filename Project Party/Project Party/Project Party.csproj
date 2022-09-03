@@ -10,8 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime" Version="100.15.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.Xamarin.Forms" Version="100.15.0" />
     <PackageReference Include="Geolocation" Version="1.2.1" />
     <PackageReference Include="Google.Apis" Version="1.57.0" />
     <PackageReference Include="GoogleApi" Version="4.2.3" />
