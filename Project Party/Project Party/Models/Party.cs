@@ -19,6 +19,10 @@ namespace Project_Party.Models
         public Position PartyPositon { get; set; }
 
         public string Musikart { get; set; }
+
+        public string Cost { get; set; }
+
+        public int MinAge { get; set; }
         /* public Party(int partyId,string name, string pictureName, string description, DateTime time, string locationName, string city, string adress)
          {
              Id = partyId;

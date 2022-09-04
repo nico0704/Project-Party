@@ -1,7 +1,10 @@
-﻿using System.Collections.Concurrent;
+﻿
+using System.Collections.Concurrent;
 using Xamarin.Forms.GoogleMaps.Android.Factories;
 using Xamarin.Forms.GoogleMaps;
 using AndroidBitmapDescriptor = Android.Gms.Maps.Model.BitmapDescriptor;
+
+
 
 namespace XFGoogleMapSample.Droid
 {
@@ -12,6 +15,7 @@ namespace XFGoogleMapSample.Droid
 
         public AndroidBitmapDescriptor ToNative(BitmapDescriptor descriptor)
         {
+           
             var defaultFactory = DefaultBitmapDescriptorFactory.Instance;
 
             if (!string.IsNullOrEmpty(descriptor.Id))
@@ -21,6 +25,7 @@ namespace XFGoogleMapSample.Droid
             }
 
             return defaultFactory.ToNative(descriptor);
+
         }
     }
 }

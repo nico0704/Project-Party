@@ -60,7 +60,8 @@
                                            Grid.Row="0"
                                            Grid.RowSpan="3"
                                            x:Name="myImg"
-                                           Source="https://psdfreebies.com/wp-content/uploads/2021/11/Weekend-Club-Party-Flyer-PSD-Template-Preview-730x1024.jpg" />
+                                           Source="{Binding FlyerSource}"
+                                            Aspect="AspectFill"/>
                                         <Label Grid.Row="0"
                                            Grid.Column="1"
                                            Text="{Binding Name}"

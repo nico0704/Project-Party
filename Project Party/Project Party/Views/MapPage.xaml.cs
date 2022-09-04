@@ -46,7 +46,7 @@ namespace Project_Party.Views
         {
             
             var pins = vm.Pins;
-
+            Console.WriteLine(vm.Pins.Count);
             foreach(Pin pin in pins)
             {
                 Map.Pins.Add(pin);

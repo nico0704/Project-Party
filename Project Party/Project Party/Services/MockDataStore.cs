@@ -117,7 +117,10 @@ namespace Project_Party.Services
 
         private Party GetPartyFromReader(MySqlDataReader reader)
         {
-            return new Party { Id = reader.GetInt32("Id"), Name = reader.GetString("Name"), Description = reader.GetString("Description"), PictureSource = reader.GetString("PictureSource"), FlyerSource = reader.GetString("PictureSource"), Time = reader.GetDateTime("Time"), City = reader.GetString("City"), Adress = reader.GetString("Adress"), LocationName = reader.GetString("LocationName"), PartyPositon = new Position(reader.GetDouble("PartyPositionX"), reader.GetDouble("PartyPositionY")), Musikart= reader.GetString("Musikart") };
+            return new Party { Id = reader.GetInt32("Id"), Name = reader.GetString("Name"), Description = reader.GetString("Description"), PictureSource = reader.GetString("PictureSource"),
+                FlyerSource = reader.GetString("FlyerSource"), Time = reader.GetDateTime("Time"), City = reader.GetString("City"), Adress = reader.GetString("Adress"),
+                LocationName = reader.GetString("LocationName"), PartyPositon = new Position(reader.GetDouble("PartyPositionX"), reader.GetDouble("PartyPositionY")),
+                Musikart= reader.GetString("Musikart"), Cost= reader.GetString("Cost"), MinAge = reader.GetInt32("MinAge") };
         }
         //To limit the search
         public async Task<IEnumerable<Party>> GetItemsAsync(int count)

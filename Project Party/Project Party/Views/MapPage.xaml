@@ -12,6 +12,10 @@
                 <Setter Property="BackgroundColor" Value="Wheat" />
                 
             </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
         </ResourceDictionary>
         </ContentPage.Resources>
     <ContentPage.Content>
@@ -45,8 +49,10 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="10"></RowDefinition>
                             <RowDefinition Height="10"></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
@@ -95,15 +101,61 @@
                                 HorizontalOptions="Center" 
                                 /> 
                         </yummy:PancakeView>
-                        <Label Text="{Binding SelectedParty.LocationName, StringFormat=Location: {0}}"
-                               FontAttributes="Bold"
-                               Grid.Row="3"
+                        <StackLayout Grid.Row="3"
                                Grid.ColumnSpan="2"
-                               Margin="20, 0, 0, 0"></Label>
-                        <Label Text="{Binding SelectedParty.Musikart, StringFormat=Musikart: {0}}"
-                               Grid.Row="4"
+                               Margin="20, 0, 0, 0"
+                               Orientation="Horizontal">
+                            <Label Text="&#xf041;"
+                                   FontFamily="{StaticResource FontAwesomeSolid}"/>
+
+
+                            <Label Text="{Binding SelectedParty.LocationName}"
+                               FontAttributes="Bold"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="4"
                                Grid.ColumnSpan="2"
-                               Margin="20, 0, 0, 0"></Label>
+                               Margin="20, 0, 0, 0"
+                               Orientation="Horizontal">
+                            <Label Text="&#xf001;"
+                                   FontFamily="{StaticResource FontAwesomeSolid}">
+                                
+                            </Label>
+                            <Label Text="{  Binding SelectedParty.Musikart, StringFormat=Musikart: {0} }" />
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="5"
+                               Grid.ColumnSpan="2"
+                               Margin="20, 0, 0, 0"
+                               Orientation="Horizontal">
+                            <Label Text="&#xf017;"
+                                   FontFamily="{StaticResource FontAwesomeSolid}"/>
+                            <Label Text="{Binding SelectedParty.Time, StringFormat='{0:H:mm}' }"
+                               
+                               ></Label>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="5"
+                               Grid.Column="1"
+                               HorizontalOptions="Center"
+                               Orientation="Horizontal">
+                            <Label Text="&#xf51e;"
+                                   FontFamily="{StaticResource FontAwesomeSolid}"/>
+                            <Label Text="{Binding SelectedParty.Cost, StringFormat='{0:H:mm}' }"
+                               
+                               ></Label>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="5"
+                               Grid.Column="2"
+                               HorizontalOptions="Center"
+                               Orientation="Horizontal">
+                            <Label Text="&#xf2c2;"
+                                   FontFamily="{StaticResource FontAwesomeSolid}"/>
+                            <Label Text="{Binding SelectedParty.MinAge }"
+                               
+                               ></Label>
+                        </StackLayout>
                     </Grid>
                     
                 </yummy:PancakeView>

@@ -16,7 +16,8 @@ namespace Project_Party.ViewModels
     public class MapPageViewModel : BaseViewModel
     {
         public Command LoadLocationsCommand { get; }
-
+        
+        
         public Command PinClickedCommand { get; }
 
         Pin selectedPin;
@@ -38,7 +39,16 @@ namespace Project_Party.ViewModels
                 SetProperty(ref selectedParty, value);
             }
          }
-        public LinkedList<Pin> Pins { get; private set; } = new LinkedList<Pin>() ;
+
+        LinkedList<Pin> pins;
+        public LinkedList<Pin> Pins
+        {
+            get { return pins; }
+            set
+            {
+                SetProperty(ref pins, value);
+            }
+        }
         
         /*
         public Map Map { get; private set; }
@@ -52,9 +62,11 @@ namespace Project_Party.ViewModels
             Content = new Grid();
             
             Map = new Map();
-
+            
             SetupContent();
             */
+            Title = "Map";
+            Pins = new LinkedList<Pin>();
             ExecuteLoadItemsCommand();
             PinClickedCommand = new Command(async () => await PinClicked());
             LoadLocationsCommand = new Command(async () => await ExecuteLoadItemsCommand());
@@ -154,24 +166,22 @@ namespace Project_Party.ViewModels
 
         async Task ExecuteLoadItemsCommand()
         {
-            IsBusy = true;
-
+            IsBusy = true; 
             try
             {
-
                 Pins.Clear();
                 
                 var locations = await DataStore.GetItemsAsync(20);
+                
                 foreach (var location in locations)
                 {
-
-
                     Pins.AddLast(new Pin()
                     {
                         Label = location.Name,
                         Position = location.PartyPositon,
                         Icon = BitmapDescriptorFactory.DefaultMarker(Color.Gray),
                         Type = PinType.Place,
+                        //Icon. = BitmapDescriptorFactory.FromBundle("Location"),
                         Tag = location.Id
                     }) ;
                 }
