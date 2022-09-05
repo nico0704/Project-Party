@@ -35,16 +35,15 @@
                                 <Frame CornerRadius="20"  
                            
                                         BackgroundColor="White"
-                                        HasShadow="False"
-                                        xct:ShadowEffect.Color="Black" 
-                                        xct:ShadowEffect.OffsetY="0"
-                                        xct:ShadowEffect.Radius="5"
+                                        xct:ShadowEffect.Color="Gray"
+                                        xct:ShadowEffect.Radius="0.5"
+                                        xct:ShadowEffect.Opacity="0.55"
                                         IsClippedToBounds="False"
                                         Padding="20, 10"
                             >
 
 
-                                    <Grid HeightRequest="150">
+                                    <Grid HeightRequest="120">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="20"></RowDefinition>
                                             <RowDefinition ></RowDefinition>
@@ -64,15 +63,19 @@
                                             Aspect="AspectFill"/>
                                         <Label Grid.Row="0"
                                            Grid.Column="1"
+                                           FontSize="17"
+                                           FontAttributes="Bold"
                                            Text="{Binding Name}"
-                                        TextColor="#000" />
+                                           TextColor="#000" />
 
                                         <Label Grid.Row="1"
                                            Grid.Column="1"
+                                           FontSize="13"
                                            Text="{Binding Time, StringFormat='{}{0:dd/MM HH:mm }'}"
                                         TextColor="#503026" />
                                         <Label Grid.Row="2"
                                            Grid.Column="1"
+                                               FontSize="13"
                                             TextColor="#503026">
                                             <Label.Text>
                                                 <MultiBinding StringFormat="{}{0}, {1}">

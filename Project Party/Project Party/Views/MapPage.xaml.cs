@@ -60,7 +60,6 @@ namespace Project_Party.Views
             vm.PinClickedCommand.Execute(null);
             ClickedPin = true;
             Console.WriteLine(vm.SelectedParty.Name);
-            Grid.SetRowSpan(Map, 2);
             DetailedParty.IsVisible = true;
         }
 
@@ -68,7 +67,6 @@ namespace Project_Party.Views
         {
             if(ClickedPin == true)
             {
-                Grid.SetRowSpan(Map, 3);
                 DetailedParty.IsVisible = false;
                 ClickedPin = false;
             }

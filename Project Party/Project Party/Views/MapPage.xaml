@@ -44,7 +44,7 @@
                     BackgroundColor="White"
                     IsVisible="False" x:Name="DetailedParty">
                     <Grid >
-                        
+
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="10"></RowDefinition>
@@ -65,7 +65,7 @@
                            Grid.Row="0"
                            Grid.RowSpan="2"
                            Grid.ColumnSpan="3">
-                           
+
                         </Image>
                         <yummy:PancakeView HorizontalOptions="Center"
                               Grid.Row="0"
@@ -76,15 +76,15 @@
                               CornerRadius="10"
                               Padding="3"
                               >
-                            <Label FontSize="30"
+                            <Label FontSize="27"
                                    FontAttributes="Bold"
                                    TextColor="Black"
                                    Text="{Binding SelectedParty.Name}"
                                    >
-                                
+
                             </Label>
                         </yummy:PancakeView>
-                        
+
                         <yummy:PancakeView 
                             Grid.Row="1"
                             Grid.RowSpan="2"
@@ -99,7 +99,7 @@
                                 Text="{Binding SelectedParty.Time, StringFormat='{0:d.MM.yyyy}'}"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" 
-                                /> 
+                                />
                         </yummy:PancakeView>
                         <StackLayout Grid.Row="3"
                                Grid.ColumnSpan="2"
@@ -110,7 +110,8 @@
 
 
                             <Label Text="{Binding SelectedParty.LocationName}"
-                               FontAttributes="Bold"/>
+                               FontAttributes="Bold"
+                                   FontSize="15"/>
                         </StackLayout>
 
                         <StackLayout Grid.Row="4"
@@ -119,9 +120,9 @@
                                Orientation="Horizontal">
                             <Label Text="&#xf001;"
                                    FontFamily="{StaticResource FontAwesomeSolid}">
-                                
+
                             </Label>
-                            <Label Text="{  Binding SelectedParty.Musikart, StringFormat=Musikart: {0} }" />
+                            <Label FontSize="15" Text="{  Binding SelectedParty.Musikart, StringFormat=Musikart: {0} }" />
                         </StackLayout>
 
                         <StackLayout Grid.Row="5"
@@ -131,7 +132,7 @@
                             <Label Text="&#xf017;"
                                    FontFamily="{StaticResource FontAwesomeSolid}"/>
                             <Label Text="{Binding SelectedParty.Time, StringFormat='{0:H:mm}' }"
-                               
+                               FontSize="15"
                                ></Label>
                         </StackLayout>
 
@@ -142,7 +143,7 @@
                             <Label Text="&#xf51e;"
                                    FontFamily="{StaticResource FontAwesomeSolid}"/>
                             <Label Text="{Binding SelectedParty.Cost, StringFormat='{0:H:mm}' }"
-                               
+                               FontSize="15"
                                ></Label>
                         </StackLayout>
 
@@ -153,11 +154,11 @@
                             <Label Text="&#xf2c2;"
                                    FontFamily="{StaticResource FontAwesomeSolid}"/>
                             <Label Text="{Binding SelectedParty.MinAge }"
-                               
+                               FontSize="15"
                                ></Label>
                         </StackLayout>
                     </Grid>
-                    
+
                 </yummy:PancakeView>
             </Grid>
             

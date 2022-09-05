@@ -4,7 +4,8 @@
        xmlns:local="clr-namespace:Project_Party.Views"
        Title="Project_Party"
        x:Class="Project_Party.AppShell"
-       xmlns:c="clr-namespace:TodosSample.Controls">
+       xmlns:c="clr-namespace:TodosSample.Controls"
+       xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -16,16 +17,19 @@
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="#000" />
-                <Setter Property="Shell.TitleColor" Value="#000" />
+                <Setter Property="Shell.ForegroundColor" Value="Orange" />
+                <Setter Property="Shell.TitleColor" Value="Orange" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#000" />
+                
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="#000"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="Orange"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#000"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="#000"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="orange"/>
+
             </Style>
-            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}">
+            </Style>
             <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
 
@@ -88,7 +92,7 @@
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
                                
-                                 Glyph="&#xf015;">
+                                 Glyph="&#xf03a;">
                 </FontImageSource>
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
@@ -96,7 +100,7 @@
 
         <Tab Title="Map">
             <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}"
                                 
                                  Glyph="&#xf279;">
                 </FontImageSource>
@@ -106,7 +110,7 @@
 
         <Tab Title="Profile">
             <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}"
                                  
                                  Glyph="&#xf007;">
                 </FontImageSource>
