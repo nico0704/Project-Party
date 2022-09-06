@@ -91,8 +91,10 @@
         <Tab Title="Veranstaltungen">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
-                               
+                                 Size="25"
                                  Glyph="&#xf03a;">
+
+                    
                 </FontImageSource>
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
@@ -101,7 +103,7 @@
         <Tab Title="Map">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}"
-                                
+                                Size="25"
                                  Glyph="&#xf279;">
                 </FontImageSource>
             </Tab.Icon>
@@ -111,7 +113,7 @@
         <Tab Title="Profile">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}"
-                                 
+                                 Size="25"
                                  Glyph="&#xf007;">
                 </FontImageSource>
             </Tab.Icon>

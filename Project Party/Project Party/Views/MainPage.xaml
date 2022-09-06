@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Project_Party.Views.MainPage"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-                xmlns:local="clr-namespace:Project_Party.ViewModels">
-    
+
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -32,18 +33,18 @@
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                                <Frame CornerRadius="20"  
-                           
+                                <yummy:PancakeView
+                                        CornerRadius="20"  
                                         BackgroundColor="White"
-                                        xct:ShadowEffect.Color="Gray"
-                                        xct:ShadowEffect.Radius="0.5"
-                                        xct:ShadowEffect.Opacity="0.55"
                                         IsClippedToBounds="False"
-                                        Padding="20, 10"
-                            >
+                                        Padding="20, 10">
+                                    <yummy:PancakeView.Shadow>
+                                        <yummy:DropShadow Color="#000000"
+                                                          BlurRadius="2"></yummy:DropShadow>
+                                    </yummy:PancakeView.Shadow>
 
 
-                                    <Grid HeightRequest="120">
+                                <Grid HeightRequest="120">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="20"></RowDefinition>
                                             <RowDefinition ></RowDefinition>
@@ -85,7 +86,7 @@
                                             </Label.Text>
                                         </Label>
                                     </Grid>
-                                </Frame>
+                                </yummy:PancakeView>
 
                             </Grid>
 

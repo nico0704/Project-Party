@@ -179,9 +179,9 @@ namespace Project_Party.ViewModels
                     {
                         Label = location.Name,
                         Position = location.PartyPositon,
-                        Icon = BitmapDescriptorFactory.DefaultMarker(Color.Gray),
+                        //Icon = BitmapDescriptorFactory.DefaultMarker(Color.Gray),
                         Type = PinType.Place,
-                        //Icon. = BitmapDescriptorFactory.FromBundle("Location"),
+                        Icon = BitmapDescriptorFactory.FromBundle("location"),
                         Tag = location.Id
                     }) ;
                 }
