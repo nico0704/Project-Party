@@ -22,7 +22,6 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />  
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />  
     <PackageReference Include="Xamarin.Forms.GoogleMaps.Bindings" Version="3.0.0" />  
-    <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2515" />  
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
 

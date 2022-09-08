@@ -7,15 +7,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms.GoogleMaps;
 using MySqlConnector;
-
+using GoogleApi.Entities.Search.Video.Common;
+using System.Threading;
 
 namespace Project_Party.Services
 {
     public class MockDataStore : IDataStore<Party>
     {
         readonly List<Party> partys;
-        private MySqlConnection connection;
+        //private MySqlConnection connection;
         public static bool Connected = false;
+        string connStr = "Server=s223.goserver.host;Port=3306;User ID=web320;Password=patryk;Database=web320_db1;";
         private MockDataStore()
         {
             if (!Connected)
@@ -25,6 +27,7 @@ namespace Project_Party.Services
             }
 
             partys = new List<Party>();
+
             /*
             partys = new List<Party>()
             {
@@ -52,15 +55,17 @@ namespace Project_Party.Services
         }
 
 
-        public Task<bool> Connect()
+        public async Task<bool> Connect()
         {
             bool result = false;
             try
             {
-                string connStr = "Server=s223.goserver.host;Port=3306;User ID=web320;Password=patryk;Database=web320_db1;";
-                connection = new MySqlConnection(connStr);
-                connection.Open();
-                Console.WriteLine("Connected to Server!");
+                using (MySqlConnection sqlcon = new MySqlConnection(connStr))
+                {
+                    sqlcon.Open();
+                }
+
+                Console.WriteLine("Connected to Database!");
                 result = true;
 
             }
@@ -69,7 +74,7 @@ namespace Project_Party.Services
                 Console.WriteLine(e.ToString());
             }
 
-            return Task.FromResult(result);
+            return result;
 
 
         }
@@ -97,19 +102,22 @@ namespace Project_Party.Services
         {
             partys.Clear();
             string commandString = "select * from Party";
-            MySqlCommand command = new MySqlCommand(commandString, connection);
-
-
-            MySqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            using (MySqlConnection sqlcon = new MySqlConnection(connStr))
             {
-                //Creating only a Test Party
-                //Need to Setup real Database
+                sqlcon.Open();
+                using (MySqlCommand command = new MySqlCommand(commandString, sqlcon))
+                {
+                    using(MySqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
 
-                partys.Add(GetPartyFromReader(reader));
-                Console.WriteLine(partys.Count);
+                            partys.Add(GetPartyFromReader(reader));
+                            Console.WriteLine(partys.Count);
+                        }
+                    }
+                }
             }
-            reader.Close();
 
 
             return await Task.FromResult(partys);
@@ -127,20 +135,23 @@ namespace Project_Party.Services
         {
 
             string commandString = "select * from Party LIMIT " + count;
-            MySqlCommand command = new MySqlCommand(commandString, connection);
-
-
-            MySqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (MySqlConnection sqlcon = new MySqlConnection(connStr))
             {
-                reader.GetUInt32("ID");
-                partys.Add(GetPartyFromReader(reader));
-                Console.WriteLine(partys.Count);
+                sqlcon.Open();
+                using (MySqlCommand command = new MySqlCommand(commandString, sqlcon))
+                {
+                    using (MySqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        partys.Clear();
+                        while (await reader.ReadAsync())
+                        {
+                            partys.Add(GetPartyFromReader(reader));
+                            
+                        }
+                    }
+                    Console.WriteLine("Count of Partys" + partys.Count);
+                }
             }
-
-            reader.Close();
-
             return await Task.FromResult(partys);
         }
 
@@ -157,18 +168,21 @@ namespace Project_Party.Services
         public async Task<Party> GetItemAsync(int id)
         {
             string commandString = "select * from Party where ID=" + id;
-            MySqlCommand command = new MySqlCommand(commandString, connection);
-
-
-            MySqlDataReader reader = command.ExecuteReader();
-
-            //command.Parameters.AddWithValue("@zip","india");
-            while (reader.Read())
+            using (MySqlConnection sqlcon = new MySqlConnection(connStr))
             {
-                Console.WriteLine(reader.GetUInt32("ID"));
+                sqlcon.Open();
+                using (MySqlCommand command = new MySqlCommand(commandString, sqlcon))
+                {
+                    using (MySqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine(reader.GetUInt32("ID"));
+                        }
+                    }
+                }
             }
 
-            reader.Close();
             return await Task.FromResult(partys.FirstOrDefault(s => s.Id == id));
         }
 
@@ -185,9 +199,38 @@ namespace Project_Party.Services
         }
 
         //Get all events in the MapSpan for clean MapView
-        public Task<IEnumerable<Party>> GetItemsAsync(MapSpan mapSpan)
+        public async Task<IEnumerable<Party>> GetItemsAsync(MapSpan mapSpan)
         {
-            throw new NotImplementedException();
+            Position center = mapSpan.Center;
+            try
+            {
+                string commandString = "SELECT *  FROM `Party` where (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(`PartyPositionX`)) * COS(RADIANS(" + center.Latitude + ")) * COS(RADIANS(`PartyPositionY` - " + center.Longitude + ")) + SIN(RADIANS(`PartyPositionX`)) * SIN(RADIANS(" + center.Latitude + ")))))) < " + mapSpan.Radius.Kilometers;
+                using(MySqlConnection sqlcon = new MySqlConnection(connStr))
+                {
+                    sqlcon.Open();
+                    using (MySqlCommand command = new MySqlCommand(commandString, sqlcon))
+                    {
+                        partys.Clear();
+                        var reader = await command.ExecuteReaderAsync();
+
+                        while (await reader.ReadAsync())
+                        {
+                            partys.Add(GetPartyFromReader(reader));
+                        }
+                        Console.WriteLine(partys.Count);
+
+                        reader.Close();
+                    }
+
+                    return await Task.FromResult(partys);
+                }
+                
+            }catch(MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return partys;
         }
 
         //Get all events actualPosition and by Distance
@@ -199,5 +242,6 @@ namespace Project_Party.Services
         {
             return Task.FromResult(partys.FirstOrDefault(s => s.Id == id));
         }
+
     }
 }
