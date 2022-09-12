@@ -193,9 +193,75 @@ namespace Project_Party.Services
 
         //Get all events in the city
         //in time and nearby
-        public Task<IEnumerable<Party>> GetItemsAsync(string city)
+        public async Task<IEnumerable<Party>> GetItemsAsync(string city)
         {
-            throw new NotImplementedException();
+            /*
+            try
+            {
+                
+                using (MySqlConnection sqlcon = new MySqlConnection(connStr))
+                {
+                    sqlcon.Open();
+                    using (MySqlCommand command = new MySqlCommand(commandString, sqlcon))
+                    {
+                        partys.Clear();
+                        var reader = await command.ExecuteReaderAsync();
+
+                        while (await reader.ReadAsync())
+                        {
+                            partys.Add(GetPartyFromReader(reader));
+                        }
+                        Console.WriteLine(partys.Count);
+
+                        reader.Close();
+                    }
+
+                    return await Task.FromResult(partys);
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            */
+            return partys;
+        }
+
+        public async Task<IEnumerable<Party>> GetItemsAsync(DateTime dateTime)
+        {
+            try
+            {
+                String sqlDateTime = dateTime.ToString("yyyy-MM-dd");
+                Console.WriteLine(sqlDateTime);
+                string commandString = "Select * from Party where Date(Time) = '" + sqlDateTime + "'";
+                using (MySqlConnection sqlcon = new MySqlConnection(connStr))
+                {
+                    sqlcon.Open();
+                    using (MySqlCommand command = new MySqlCommand(commandString, sqlcon))
+                    {
+                        partys.Clear();
+                        var reader = await command.ExecuteReaderAsync();
+
+                        while (await reader.ReadAsync())
+                        {
+                            partys.Add(GetPartyFromReader(reader));
+                        }
+                        Console.WriteLine(partys.Count);
+
+                        reader.Close();
+                    }
+
+                    return await Task.FromResult(partys);
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return partys;
         }
 
         //Get all events in the MapSpan for clean MapView

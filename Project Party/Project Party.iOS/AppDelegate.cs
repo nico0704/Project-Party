@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using CarouselView.FormsPlugin.iOS;
 using Foundation;
 using UIKit;
 using Xamarin.Forms.GoogleMaps.iOS;
@@ -26,7 +26,8 @@ namespace Project_Party.iOS
         {
             
             global::Xamarin.Forms.Forms.Init();
-
+            CarouselViewRenderer.Init();
+            Sharpnado.Tabs.iOS.Preserver.Preserve();
             var platformConfig = new PlatformConfig
             {
                 ImageFactory = new CachingImageFactory()

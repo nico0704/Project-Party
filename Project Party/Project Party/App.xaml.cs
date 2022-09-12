@@ -13,7 +13,9 @@ namespace Project_Party
         {
             InitializeComponent();
 
+
             DependencyService.Register<MockDataStore>();
+            
             MainPage = new AppShell();
         }
 

@@ -10,10 +10,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CarouselView.FormsPlugin" Version="6.0.0" />
     <PackageReference Include="Geolocation" Version="1.2.1" />
     <PackageReference Include="Google.Apis" Version="1.57.0" />
     <PackageReference Include="GoogleApi" Version="4.2.3" />
     <PackageReference Include="MySqlConnector" Version="2.1.13" />
+    <PackageReference Include="Sharpnado.Tabs" Version="2.2.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="Xamarin.Build.Download" Version="0.11.3" />
@@ -26,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\MainPage.xaml">
+    <EmbeddedResource Update="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SinglePartyPage.xaml">

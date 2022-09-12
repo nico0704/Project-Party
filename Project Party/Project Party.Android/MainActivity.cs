@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.OS;
 using Xamarin.Forms.GoogleMaps.Android;
 using XFGoogleMapSample.Droid;
+using CarouselView.FormsPlugin.Droid;
 
 namespace Project_Party.Droid
 {
@@ -44,10 +45,12 @@ namespace Project_Party.Droid
           
 
             base.OnCreate(savedInstanceState);
-
+            /* 
+            */
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            CarouselViewRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             var platformConfig = new PlatformConfig

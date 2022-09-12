@@ -15,6 +15,8 @@ namespace Project_Party.Services
 
         Task<IEnumerable<T>> GetItemsAsync(string city);
 
+        Task<IEnumerable<T>> GetItemsAsync(DateTime dateTime);
+
         Task<IEnumerable<T>> GetItemsAsync(MapSpan mapSpan);
 
         Task<IEnumerable<T>> GetItemsAsync(Position actualPosition, double distance);

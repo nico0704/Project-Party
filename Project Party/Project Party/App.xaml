@@ -26,8 +26,9 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
+                
             </Style>
-
+            <Color x:Key="Secondary">#916BBF</Color>
             <OnPlatform x:TypeArguments="x:String" 
                 x:Key="FontAwesomeBrands">
                 <On Platform="Android" 
