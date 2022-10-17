@@ -100,9 +100,11 @@ namespace Project_Party.ViewModels
                           return;
 
             var locations = await DataStore.GetItemsAsync(VisibleRegion);
+
             Pins = SetPinsByList(locations);
             isBusy = false;
         }
+
         async Task ExecuteLoadItemsCommand()
         {
 
@@ -127,6 +129,8 @@ namespace Project_Party.ViewModels
         {
             Pins.Clear();
             var _pins = new LinkedList<Pin>();
+
+
             foreach ( var location in locations )
             {
                 _pins.AddLast(new Pin( )

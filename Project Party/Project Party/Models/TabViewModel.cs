@@ -18,7 +18,7 @@ namespace Project_Party.Models
         public TabViewModel(ObservableCollection<Party> partys, DateTime dateTime)
         {
             var culture = new System.Globalization.CultureInfo("de-DE");
-            DayOfWeekGerman = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
+            DayOfWeekGerman = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek).Substring(0, 2);
 
             this.Title = dateTime.Day +"." + dateTime.Month;
             this.Partys = partys;
@@ -26,7 +26,7 @@ namespace Project_Party.Models
 
             if (dateTime.DayOfWeek == DayOfWeek.Sunday || dateTime.DayOfWeek == DayOfWeek.Friday || dateTime.DayOfWeek == DayOfWeek.Saturday)
                 BackgroundColor = "Pink";
-            else BackgroundColor = "Transparent";
+            else BackgroundColor = "White";
         }
 
 

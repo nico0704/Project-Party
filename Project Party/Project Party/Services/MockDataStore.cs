@@ -101,7 +101,7 @@ namespace Project_Party.Services
         public async Task<IEnumerable<Party>> GetItemsAsync()
         {
             partys.Clear();
-            string commandString = "select * from Party";
+            string commandString = "select * from partys";
             using (MySqlConnection sqlcon = new MySqlConnection(connStr))
             {
                 sqlcon.Open();
@@ -125,7 +125,7 @@ namespace Project_Party.Services
 
         private Party GetPartyFromReader(MySqlDataReader reader)
         {
-            return new Party { Id = reader.GetInt32("Id"), Name = reader.GetString("Name"), Description = reader.GetString("Description"), PictureSource = reader.GetString("PictureSource"),
+            return new Party { Id = reader.GetInt32("party_id"), Name = reader.GetString("Name"), Description = reader.GetString("Description"), PictureSource = reader.GetString("PictureSource"),
                 FlyerSource = reader.GetString("FlyerSource"), Time = reader.GetDateTime("Time"), City = reader.GetString("City"), Adress = reader.GetString("Adress"),
                 LocationName = reader.GetString("LocationName"), PartyPositon = new Position(reader.GetDouble("PartyPositionX"), reader.GetDouble("PartyPositionY")),
                 Musikart= reader.GetString("Musikart"), Cost= reader.GetString("Cost"), MinAge = reader.GetInt32("MinAge") };
@@ -134,7 +134,7 @@ namespace Project_Party.Services
         public async Task<IEnumerable<Party>> GetItemsAsync(int count)
         {
 
-            string commandString = "select * from Party LIMIT " + count;
+            string commandString = "select * from partys LIMIT " + count;
             using (MySqlConnection sqlcon = new MySqlConnection(connStr))
             {
                 sqlcon.Open();
@@ -167,7 +167,7 @@ namespace Project_Party.Services
 
         public async Task<Party> GetItemAsync(int id)
         {
-            string commandString = "select * from Party where ID=" + id;
+            string commandString = "select * from partys where ID=" + id;
             using (MySqlConnection sqlcon = new MySqlConnection(connStr))
             {
                 sqlcon.Open();
@@ -234,7 +234,7 @@ namespace Project_Party.Services
             {
                 String sqlDateTime = dateTime.ToString("yyyy-MM-dd");
                 Console.WriteLine(sqlDateTime);
-                string commandString = "Select * from Party where Date(Time) = '" + sqlDateTime + "'";
+                string commandString = "Select * from partys where Date(Time) = '" + sqlDateTime + "'";
                 using (MySqlConnection sqlcon = new MySqlConnection(connStr))
                 {
                     sqlcon.Open();
@@ -270,7 +270,7 @@ namespace Project_Party.Services
             Position center = mapSpan.Center;
             try
             {
-                string commandString = "SELECT *  FROM `Party` where (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(`PartyPositionX`)) * COS(RADIANS(" + center.Latitude + ")) * COS(RADIANS(`PartyPositionY` - " + center.Longitude + ")) + SIN(RADIANS(`PartyPositionX`)) * SIN(RADIANS(" + center.Latitude + ")))))) < " + mapSpan.Radius.Kilometers;
+                string commandString = "SELECT *  FROM partys where (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(`PartyPositionX`)) * COS(RADIANS(" + center.Latitude + ")) * COS(RADIANS(`PartyPositionY` - " + center.Longitude + ")) + SIN(RADIANS(`PartyPositionX`)) * SIN(RADIANS(" + center.Latitude + ")))))) < " + mapSpan.Radius.Kilometers + "LIMIT 100";
                 using(MySqlConnection sqlcon = new MySqlConnection(connStr))
                 {
                     sqlcon.Open();

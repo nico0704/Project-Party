@@ -88,7 +88,7 @@
     <TabBar Style="{StaticResource BaseStyle}">
 
 
-        <Tab Title="Veranstaltungen">
+        <Tab Title="Party">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
                                  Size="25"
@@ -99,7 +99,7 @@
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
-
+        
         <Tab Title="Map">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}"
@@ -110,7 +110,8 @@
             <ShellContent ContentTemplate="{DataTemplate local:MapPage}" />
         </Tab>
 
-        <Tab Title="Profile">
+
+        <Tab Title="Profil">
             <Tab.Icon>
                 <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}"
                                  Size="25"

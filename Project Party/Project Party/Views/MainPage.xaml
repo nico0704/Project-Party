@@ -1,0 +1,720 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             Title="{Binding Title}"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Project_Party.Views.MainPage"
+
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+              xmlns:controls="clr-namespace:Project_Party.Controls" xmlns:entryautocomplete1="clr-namespace:EntryAutoComplete">
+ 
+    <ContentPage.Content>
+        <Grid x:Uid="ContentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="MainRow" Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition x:Name="FilterRow"  Height="0.13*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="0.35*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <yummy:PancakeView Grid.Row="0"
+                            
+                            Grid.RowSpan="2"
+                            Grid.ColumnSpan="2"
+                            
+                           >
+                
+
+
+
+                <CarouselView       x:Name="carousel"
+                                    CurrentItem="{Binding CurrentTabVm, Mode=TwoWay}"
+                                    CurrentItemChanged="CarouselView_CurrentItemChanged"
+                                    HorizontalScrollBarVisibility="Never"
+                                    IsScrollAnimated="True"
+                                    IsSwipeEnabled="True"
+                                    ItemsSource="{Binding TabVms}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalScrollBarVisibility="Never">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <CollectionView x:Name="listView" SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged" ItemsSource="{Binding Partys}">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <Grid Padding="20, 10">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup Name="CommonStates">
+                                                        <VisualState Name="Selected">
+                                                            <VisualState.Setters>
+                                                                <Setter Property="BackgroundColor" Value="White"/>
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <yummy:PancakeView
+                                                                    CornerRadius="20"  
+                                                                    BackgroundColor="White"
+                                                                    IsClippedToBounds="False"
+                                                                    Padding="20, 10">
+                                                    <yummy:PancakeView.Shadow>
+                                                        <yummy:DropShadow Color="#000000"
+                                                                                      BlurRadius="2"></yummy:DropShadow>
+                                                    </yummy:PancakeView.Shadow>
+
+
+                                                    <Grid HeightRequest="100">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="20"></RowDefinition>
+                                                            <RowDefinition ></RowDefinition>
+                                                            <RowDefinition></RowDefinition>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="0.45*"></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image Grid.Column="0"
+                                                                       Grid.Row="0"
+                                                                       Grid.RowSpan="3"
+                                                                       x:Name="myImg"
+                                                                       Source="{Binding FlyerSource}"
+                                                                       Aspect="AspectFill"/>
+                                                        <Label Grid.Row="0"
+                                                                       Grid.Column="1"
+                                                                       FontSize="17"
+                                                                       FontAttributes="Bold"
+                                                                       Text="{Binding Name}"
+                                                                       TextColor="#000" />
+
+                                                        <Label Grid.Row="1"
+                                                                       Grid.Column="1"
+                                                                       FontSize="13"
+                                                                       Text="{Binding Time, StringFormat='{}{0:dd/MM HH:mm }'}"
+                                                                    TextColor="#503026" />
+                                                        <Label Grid.Row="2"
+                                                                       Grid.Column="1"
+                                                                           FontSize="13"
+                                                                        TextColor="#503026">
+                                                            <Label.Text>
+                                                                <MultiBinding StringFormat="{}{0}, {1}">
+                                                                    <Binding Path="LocationName" />
+                                                                    <Binding Path="City" />
+                                                                </MultiBinding>
+                                                            </Label.Text>
+                                                        </Label>
+                                                    </Grid>
+                                                </yummy:PancakeView>
+
+                                            </Grid>
+
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </yummy:PancakeView>
+
+
+            <Grid   Grid.ColumnSpan="2"
+                    Grid.Row="1"
+                    x:Name ="BottomToolbar"
+                    Grid.RowSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="3"/>
+                   
+                </Grid.RowDefinitions>
+                <yummy:PancakeView BackgroundColor="White" 
+                               Grid.RowSpan="2"
+                               Margin="-1, 0, -1, 0"
+                               CornerRadius="20, 20, 0, 0"
+                               >
+                    
+                    <yummy:PancakeView.Border>
+                        <yummy:Border Color="#000000" Thickness="1"
+                                    
+                                     />
+                    </yummy:PancakeView.Border>
+
+
+                    
+                </yummy:PancakeView>
+                <yummy:PancakeView VerticalOptions="Fill"
+                                   HorizontalOptions="Fill"
+                                   BackgroundColor="White"
+                                   Grid.Row="1">
+                    
+                </yummy:PancakeView>
+            </Grid>
+            
+            <Grid x:Name="BottomContent"
+                 
+                  Grid.Row="2"
+                  Grid.RowSpan="2"
+                  Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.7*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Grid x:Name="SearchLocationGrid"
+                      Grid.Row="0"
+                      Grid.ColumnSpan="2"
+                      VerticalOptions="End"
+                      IsVisible="true"
+                      
+                 >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Orientation="Horizontal">
+                        <Image Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               >
+
+                            <Image.Source>
+                                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                 Color="Black"
+                                 Glyph="&#xf3c5;"
+                                Size="15"
+                                 />
+                            </Image.Source>
+                        </Image>
+                        <Label x:Name="LocationLabel"
+                               Text="Mein Standort"
+                               FontSize="15"
+                               FontAttributes="Bold"></Label>
+                    </StackLayout>
+
+                    <yummy:PancakeView 
+                        Grid.Column="1"
+                        Grid.ColumnSpan="1"
+                        VerticalOptions="End"
+                        CornerRadius="10" 
+                        Margin="2.5, 0, 10, 0">
+                        <yummy:PancakeView.Border>
+                            <yummy:Border Color="Black" Thickness="1">
+                            </yummy:Border>
+
+                        </yummy:PancakeView.Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition>
+
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="0.3*">
+
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                 Color="Black"
+                                 Glyph="&#xf078;"
+                                Size="15"
+                                 />
+                                </Image.Source>
+                            </Image>
+                            <controls:BorderlessPicker
+                                x:Name="picker"
+                                Margin="0, 0, 0, 0"
+                                VerticalOptions="StartAndExpand"
+                                HorizontalTextAlignment="Center"
+                                FontSize="15"
+                                ItemsSource="{Binding PickerList}"
+                                ItemDisplayBinding="{Binding Name}"
+                                Title="Entfernung"
+                                TitleColor="Black"   
+                                SelectedItem="{Binding SelectedDistance, Mode=TwoWay}"
+                            />
+                        </Grid>
+                    </yummy:PancakeView>
+
+                    <yummy:PancakeView BackgroundColor="LightGray"
+                                       CornerRadius="10"
+                                       Grid.Column="2"
+                                       Margin="0, 0, 10, 0"
+                                       >
+                        <yummy:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FilterButton_Tapped"></TapGestureRecognizer>
+                        </yummy:PancakeView.GestureRecognizers>
+                        <Image Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               >
+                            <Image.Source>
+                                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                 Color="Black"
+                                 Glyph="&#xf0b0;"
+                                 Size="15"
+                                 />
+                            </Image.Source>
+                        </Image>
+                    </yummy:PancakeView>
+                </Grid>
+                <CollectionView
+                                x:Name="CustomTabsView"
+                                Margin="0,0,0,10"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalScrollBarVisibility="Never"
+                                ItemsSource="{Binding TabVms}"
+                                ItemsUpdatingScrollMode="KeepItemsInView"
+                                SelectedItem="{Binding CurrentTabVm, Mode=TwoWay}"
+                                SelectionMode="Single"
+                                VerticalScrollBarVisibility="Never">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"/>
+
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate >
+                            <Grid >
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <yummy:PancakeView Margin="3, 0, 3, 0" CornerRadius="10" BackgroundColor="White">
+                                    <yummy:PancakeView.Border>
+                                        <yummy:Border Color="#000000" Thickness="1" />
+                                    </yummy:PancakeView.Border>
+
+
+                                    <Grid BackgroundColor="{Binding BackgroundColor}">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="3" />
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Label
+                                            x:Name="DayLabel"
+                                            Grid.Row="0"
+                                            FontAttributes="Bold"
+                                            FontSize="Small"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding DayOfWeekGerman}"
+                                            TextColor="Black"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            x:Name="TitleLabel"
+                                            Grid.Row="1"
+                                            Padding="10,0"
+                                            FontSize="Small"
+                                            Margin="0"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding Title}"
+                                            TextColor="Black"
+                                            VerticalTextAlignment="Center" />
+                                        <BoxView
+                                            x:Name="ActiveIndicator"
+                                            Grid.Row="2"
+                                            BackgroundColor="{StaticResource Secondary}"
+                                            IsVisible="{Binding IsSelected, Mode=TwoWay}" />
+                                    </Grid>
+                                </yummy:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+            <BoxView
+                    x:Name="PanButtonBottom"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Center"
+                    HeightRequest="4"
+                    Margin="0, 10, 0, 0"
+                    BackgroundColor="LightGray"
+                    CornerRadius="2"
+                    Grid.Row="1" >
+                <BoxView.GestureRecognizers >
+                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"></PanGestureRecognizer>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            
+
+            <Grid x:Name="FilterContent"
+                  IsVisible = "false"
+                  Grid.ColumnSpan="2"
+                  Margin="10, 20, 10, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+                
+                <Label Text="Filter" 
+                        Grid.Row="0"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+                
+                <StackLayout Grid.Row="1"
+                             Spacing="30">
+                    <StackLayout Grid.Row="1"
+                             Spacing="4">
+                        <StackLayout Orientation="Horizontal">
+                            <Image
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                     Color="Black"
+                                     Glyph="&#xf3c5;"
+                                    Size="15"
+                                     />
+                                </Image.Source>
+                            </Image>
+                            <Label Text="Mein Standort"
+                                   VerticalOptions="Center"
+                                   
+                                   x:Name="lbl_MyLocation"/>
+                            <Switch x:Name="Location_Switch"
+                                    VerticalOptions="Center"
+                                    OnColor="Purple"
+                                    Toggled="OnToggled"
+                                    Margin="0"></Switch>
+                            <Label Text="Custom Standort"
+                                   VerticalOptions="Center"
+                                   x:Name="lbl_CustomLocation"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <entryautocomplete1:EntryAutoComplete
+                            x:Name="Entry_City"
+                            IsVisible="false"
+                            Placeholder="Standort eingeben..." 
+                            ItemsSource="{Binding AdressList}"
+                            SearchText="{Binding SearchAdress}"
+                            SearchMode="{Binding SearchMode}"
+                            MaximumVisibleElements="5"
+                            VerticalOptions="End"  
+                            />
+                            <yummy:PancakeView
+                                
+                                CornerRadius="10"
+                                >
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Thickness="1" Color="Black"/>
+                                </yummy:PancakeView.Border>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition>
+
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="0.3*">
+
+                                        </ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                       >
+                                    <Image.Source>
+                                        <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                            Color="Black"
+                                            Glyph="&#xf078;"
+                                            Size="15"
+                                        />
+                                    </Image.Source>
+                                    </Image>
+                                    <controls:BorderlessPicker
+                                        x:Name="picker2"
+                                        Margin="0, 0, 0, 0"
+                                        Grid.ColumnSpan="2"
+                                        VerticalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        FontSize="15"
+                                        ItemsSource="{Binding PickerList}"
+                                        ItemDisplayBinding="{Binding Name}"
+                                        Title="Entfernung"
+                                        TitleColor="Black"   
+                                        SelectedItem="{Binding SelectedDistance, Mode=TwoWay}"
+                                    />
+                                </Grid>
+                            </yummy:PancakeView>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Image
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                     Color="Black"
+                                     Glyph="&#xf001;"
+                                    Size="15"
+                                     />
+                                </Image.Source>
+                            </Image>
+                            <Label Text="Musikart" FontAttributes="Bold"/>
+                        </StackLayout>
+                        
+                        <FlexLayout Wrap="Wrap"
+                                    JustifyContent="Center"
+                                    AlignItems="Start"
+                                    >
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 0, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1"/>
+                                </yummy:PancakeView.Border>
+                                
+                                <Label Text="Hip Hop"/>
+                                
+                            </yummy:PancakeView>
+
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 0, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1"/>
+                                </yummy:PancakeView.Border>
+                                
+                                <Label Text="Techno"/>
+                                
+                            </yummy:PancakeView>
+
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 0, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1" />
+
+                                </yummy:PancakeView.Border>
+                                
+                                <Label Text="House"/>
+                                
+                            </yummy:PancakeView>
+
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 0, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1" />
+
+                                </yummy:PancakeView.Border>
+                                
+                                <Label Text="EDM"/>
+                                
+                            </yummy:PancakeView>
+                            
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 0, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1" />
+
+                                </yummy:PancakeView.Border>
+                                
+                                <Label Text="R and B"/>
+                                
+                            </yummy:PancakeView>
+
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 5, 10, 0"
+                                              >
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1" />
+
+                                </yummy:PancakeView.Border>
+                               
+                                <Label Text="ClubSounds"/>
+                                
+                            </yummy:PancakeView>
+
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 5, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1" />
+
+                                </yummy:PancakeView.Border>
+                                
+                                <Label Text="Harstyle"/>
+                               
+                            </yummy:PancakeView>
+
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 5, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped"></TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1" />
+
+                                </yummy:PancakeView.Border>
+                              
+                                <Label Text="Rock"/>
+                                
+                            </yummy:PancakeView>
+
+                            <yummy:PancakeView CornerRadius="7"
+                                               Padding="7"
+                                               Margin="0, 5, 10, 0">
+                                <yummy:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MusicFitler_Tapped">
+                                        
+                                    </TapGestureRecognizer>
+                                </yummy:PancakeView.GestureRecognizers>
+                                <yummy:PancakeView.Border>
+                                    <yummy:Border Color="Gray" Thickness="1" />
+
+                                </yummy:PancakeView.Border>
+                               
+                                <Label Text="Drum and Bass"/>
+                              
+                            </yummy:PancakeView>
+                        </FlexLayout>
+
+                    </StackLayout>
+
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Image
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                     Color="Black"
+                                     Glyph="&#xf073;"
+                                    Size="15"
+                                     />
+                                </Image.Source>
+                            </Image>
+                            <Label VerticalOptions="Center" Text="Custom Datum" FontAttributes="Bold"/>
+                            <Switch HorizontalOptions="Start"
+                                    x:Name="Switch_CustomDate"
+                                    Toggled="Switch_CustomDate_Toggled"/>
+                        </StackLayout>
+                        
+                        <DatePicker
+                            IsVisible="false"
+                            x:Name="DatePicker_CustomDate"
+                            DateSelected="DatePicker_CustomDate_DateSelected"
+                           
+                            Format="D"
+                            />
+                        
+                    </StackLayout>
+                    
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Image
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   >
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}"
+                                     Color="Black"
+                                     Glyph="&#xf2c2;"
+                                     Size="15"
+                                     />
+                                </Image.Source>
+                            </Image>
+                            <Label VerticalOptions="Center" Text="min. Alter" FontAttributes="Bold"/>
+                            <Switch HorizontalOptions="Start"
+                                    x:Name="Switch_EntryAge"
+                                    Toggled="Switch_EntryAge_Toggled"
+                                    />
+                        </StackLayout>
+                        
+                        <Entry x:Name="Entry_MinAge"
+                               Placeholder="Alter Eingeben"
+                               Keyboard="Numeric"
+                               IsVisible="false"/>
+                    </StackLayout>
+
+                </StackLayout>
+                
+            </Grid>
+            <BoxView              
+                x:Name="PanButtonTop"
+                IsVisible="false"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                VerticalOptions="Start"
+                HorizontalOptions="Center"
+                HeightRequest="4"   
+                Margin="0, 10, 0, 0"
+                BackgroundColor="LightGray"
+                CornerRadius="2"
+                Grid.Row="0" >
+                <BoxView.GestureRecognizers >
+                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"></PanGestureRecognizer>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            
+        </Grid>
+        
+        
+    </ContentPage.Content>
+</ContentPage>

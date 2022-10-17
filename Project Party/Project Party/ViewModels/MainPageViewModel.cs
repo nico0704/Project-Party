@@ -1,26 +1,73 @@
-﻿using GoogleApi.Entities.Interfaces;
-using Org.BouncyCastle.Cms;
+﻿
 using Project_Party.Models;
-using Sharpnado.Tabs;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using GooglePlaces.Xamarin;
+using Project_Party.Controls;
+using Org.BouncyCastle.Security;
+using GoogleApi.Entities.Maps.DistanceMatrix.Response;
 
 namespace Project_Party.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
 
-        public Task KeepaliveTask { get; private set; }
+        public Command UpdateAdressListCommand { get; }
+        SearchMode _searchMode = SearchMode.All;
+
+        public SearchMode SearchMode
+        {
+            get => _searchMode;
+            set
+            {
+                SetProperty(ref _searchMode, value);
+            }
+        }
+
+        string _searchAdress = "";
+        public string SearchAdress
+        {
+            get => _searchAdress;
+            set
+            {
+                Console.WriteLine(value);
+                SetProperty(ref _searchAdress, value);
+                UpdateAdressListCommand.Execute(value);
+            }
+        }
+
+        ObservableCollection<string> _adressList = new ObservableCollection<string>();
+        public ObservableCollection<string> AdressList
+        {
+            get
+            {
+                return _adressList;
+            }
+            set
+            {
+                SetProperty(ref _adressList, value);
+            }
+        }
+
+        private DateTime _newDate;
+        public DateTime newDate
+        {
+            get
+            {
+                return _newDate;
+            }
+            set
+            {
+                SetProperty(ref _newDate, value);
+            }
+        }
+
 
         ObservableCollection<Party> _partyList;
         public ObservableCollection<Party> PartyList
@@ -35,12 +82,37 @@ namespace Project_Party.ViewModels
             }
         }
 
-        public Command LoadPartysCommand { get; }
-        
-        public String TestLabel { get; } = "Test"; 
 
-       
-        
+        public Command InitPickerListCommand { get; }
+        ObservableCollection<Distance> _pickerList;
+        public ObservableCollection<Distance> PickerList
+        {
+            get
+            {
+                return _pickerList;
+            }
+            set
+            {
+                SetProperty(ref _pickerList, value);
+            }
+        }
+
+        private Distance _selectedDistance;
+        public Distance SelectedDistance
+        {
+            get => _selectedDistance;
+            set
+            {
+                
+                Console.WriteLine(value.Name);
+                SetProperty(ref _selectedDistance, value);
+            }
+        }
+
+        public Command LoadPartysCommand { get; }
+        public Command UpdateTabVmsCommand { get; }
+
+
 
         public ObservableCollection<TabViewModel> _tabVms;
         public ObservableCollection<TabViewModel> TabVms
@@ -66,46 +138,99 @@ namespace Project_Party.ViewModels
         public  MainPageViewModel()
         {
             Task.Factory.StartNew(() => initDayWeeklist());
+
+            UpdateAdressListCommand = new Command(async () => await UpdateAdressList(_searchAdress));
             Title = "Browse";
             PartyList = new ObservableCollection<Party>();
+            InitPickerListCommand = new Command(async () => await InitPickerList());
+            InitPickerListCommand.Execute(this);
+            UpdateTabVmsCommand = new Command(async () => await UpdateTabVms());
             LoadPartysCommand = new Command(async () => await ExecuteLoadItemsCommand());
+        }
+
+        private async Task UpdateTabVms()
+        {
+
+            await ExecuteLoadItemsCommand(newDate);
+            TabViewModel tabvm = new TabViewModel(PartyList, newDate);
+            TabVms.Insert(0, tabvm);
+            CurrentTabVm = tabvm;
+            this.TabVms = TabVms;
         }
 
         // Neumachen
         private void SetSelection()
         {
-            
+    
             this.TabVms.ForEach(vm => vm.IsSelected = false);
-            this.CurrentTabVm.IsSelected = true;
-            
+            this.CurrentTabVm.IsSelected = true;    
         }
+
+        private async Task InitPickerList()
+        {
+            ObservableCollection<Distance> distances = new ObservableCollection<Distance>();
+            
+            for (int i = 0; i <= 8; i++)
+            {
+                Distance distance;
+                if (i == 0)
+                    distance = new Distance("Ganzer Ort", 0);
+                else if(i == 1)
+                    distance = new Distance("+ 500m", 500);
+                    
+                else if (i == 2)
+                    distance = new Distance("+ 1km", 1000);
+                else if (i == 3)
+                    distance = new Distance("+ 2km", 2000);
+                else if (i == 4)
+                    distance = new Distance("+ 5km", 5000);
+                else if (i == 5)
+                    distance = new Distance("+ 10km", 10000);
+                else if (i == 6)
+                    distance = new Distance("+ 30km", 30000);
+                else if (i == 7)
+                    distance = new Distance("+ 50km", 50000);
+                else if (i == 8)
+                    distance = new Distance("+ 100km", 100000);
+                else
+                    distance = new Distance("+ Fehler", 0);
+                if (i == 0)
+                    SelectedDistance = distance;
+
+                distances.Add(distance);
+            }
+            
+            PickerList = distances;
+        }
+        private async Task UpdateAdressList(String placeText)
+        {
+            PlacesAutocomplete autocompleteObject = new PlacesAutocomplete("AIzaSyCNStgUqAq-Qps0OXMR8vLi8fwNazgq_E0");
+            Predictions predictions = await autocompleteObject.GetAutocomplete(placeText);
+
+           
+            ObservableCollection<String> list = new ObservableCollection<string>(); 
+            foreach(Prediction prediction in predictions.predictions)
+            {
+                list.Add(prediction.Description);
+            }
+
+            AdressList = list;
+
+        }
+
         private async Task initDayWeeklist()
         {
-            ObservableCollection<TabViewModel>  tabVms = new ObservableCollection<TabViewModel>();
+            ObservableCollection<TabViewModel> tabVms = new ObservableCollection<TabViewModel>();
             
             DateTime now = DateTime.Now;
-            for(int i = 0; i < 14; i++)
+            for (int i = 0; i < 14; i++)
             {
                 await ExecuteLoadItemsCommand(now);
                 tabVms.Add(new TabViewModel(PartyList, now));
-                
+
                 now = now.AddDays(1);
             }
             TabVms = tabVms;
-          
-            /*
-            ObservableCollection<ObservableCollection<Party>> dayWeekList = new ObservableCollection<ObservableCollection<Party>>();
-           for(int i = 0; i < 10; i++)
-            {
-               dayWeekList.Add(PartyList);
-            }
-            DayWeekList = dayWeekList;
-            */
-        }
-      
-        private ObservableCollection<Party> CreateTestList()
-        {
-            return PartyList;
         }
 
         async Task ExecuteLoadItemsCommand()

@@ -15,6 +15,7 @@ using Xamarin.Forms.GoogleMaps;
 
 using Xamarin.Forms.Xaml;
 using static GoogleApi.GoogleMaps;
+using Distance = Xamarin.Forms.GoogleMaps.Distance;
 
 namespace Project_Party.Views
 {
@@ -43,7 +44,7 @@ namespace Project_Party.Views
             var locator = CrossGeolocator.Current;
             var position = await locator.GetPositionAsync();
             Map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
-                                                         Distance.FromMiles(1)));
+                                                        Distance.FromMiles(1)));
         }
 
     
@@ -76,29 +77,13 @@ namespace Project_Party.Views
 
         }
 
-        /*
-        private async Task<bool> UpdatePins()
-        {
-            var syncContext = SynchronizationContext.Current; // UI Thread
-
-            Task.Run(() =>
-            {
-                var result = vm.Ready();
-                
-                syncContext.Post(state =>
-                {
-                    // Run on UI Thread
-                   GetPins(); // Add pin or few pins
-                }, null);
-            });
-           
-            return true;
-        }
-        */
         [Obsolete]
         public void StoppedMoving(Object sender, CameraIdledEventArgs e)
         {
-            
+            Console.WriteLine("Target: " + Map.CameraPosition.Target);
+            Console.WriteLine("Zoom: " + Map.CameraPosition.Zoom);
+            Console.WriteLine("Radius: " + Map.VisibleRegion.Radius.Meters);
+
             vm.VisibleRegion = Map.VisibleRegion;
             vm.CameraStoppedCommand.Execute(null);
             Task.Run(() =>
@@ -106,6 +91,7 @@ namespace Project_Party.Views
                 var result = vm.Ready();
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    
                     Map.Pins.Clear();
                     foreach(var pin in vm.Pins)
                     {
@@ -137,5 +123,7 @@ namespace Project_Party.Views
             }
            
         }
+
+       
     }
 }

@@ -40,8 +40,9 @@
 
                 <yummy:PancakeView 
                     Grid.Row="1"
+                    Margin="10"
                     Grid.RowSpan="2"
-                    CornerRadius="10 10 0 0"
+                    CornerRadius="10"
                     BackgroundColor="White"
                     IsVisible="False" x:Name="DetailedParty">
                     <Grid >
